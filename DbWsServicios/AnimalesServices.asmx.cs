@@ -37,7 +37,7 @@ namespace DbWsServicios
         }
 
         [WebMethod(Description = "Insertar un nuevo animal")]
-        public bool InsertarAnimal(string nombre, string especie, int edad)
+        public bool InsertarAnimal(string nombre, string especie, int edad, string color, string ubicacion)
         {
             using (var conexion = new AnimalesEntities())
             {
@@ -46,12 +46,12 @@ namespace DbWsServicios
                     // Crea un nuevo objeto Animal y establece sus propiedades
                     var nuevoAnimal = new Animal
                     {
-                        Id = Guid.NewGuid(), // Genera un nuevo GUID para el ID
-                        Nombre = nombre,
+                        Id = Guid.NewGuid(), // Genera un nuevo GUID para el ID osea un ID totalmente aleatoria
+                        Nombre = nombre, //almacena lo datos que se teclean en el web service
                         Especie = especie,
                         Edad = edad,
-                        Color = null, // Puedes establecer el valor del color y ubicación según tus necesidades
-                        Ubicacion = null
+                        Color = color, // Puedes establecer el valor de manera nula si fuera necesario
+                        Ubicacion = ubicacion
                     };
 
                     // Agrega el nuevo animal al conjunto de entidades Animals
@@ -65,9 +65,7 @@ namespace DbWsServicios
                 }
                 catch (Exception ex)
                 {
-                    // Manejo de errores: puedes registrar el error o devolver false en caso de fallo
-                    // Aquí, estamos registrando el error en la consola, pero podrías implementar un manejo más robusto.
-                    Console.WriteLine("Error al insertar el animal: " + ex.Message);
+                    
                     return false;
                 }
             }
@@ -81,7 +79,7 @@ namespace DbWsServicios
                 try
                 {
                     // Busca el animal por su nombre
-                    var animalAEliminar = conexion.Animals.FirstOrDefault(a => a.Nombre == nombre);
+                    var animalAEliminar = conexion.Animals.FirstOrDefault(a => a.Nombre == nombre);//Realiza una consulta en la tabla "Animals" utilizando LINQ to Entities para encontrar el primer registro que cumple con una condición específica.
 
                     // Si se encontró el animal, elimínalo
                     if (animalAEliminar != null)
@@ -100,9 +98,7 @@ namespace DbWsServicios
                 }
                 catch (Exception ex)
                 {
-                    // Manejo de errores: puedes registrar el error o devolver false en caso de fallo
-                    // Aquí, estamos registrando el error en la consola, pero podrías implementar un manejo más robusto.
-                    Console.WriteLine("Error al eliminar el animal: " + ex.Message);
+                    
                     return false;
                 }
             }
@@ -140,9 +136,7 @@ namespace DbWsServicios
                 }
                 catch (Exception ex)
                 {
-                    // Manejo de errores: puedes registrar el error o devolver false en caso de fallo
-                    // Aquí, estamos registrando el error en la consola, pero podrías implementar un manejo más robusto.
-                    Console.WriteLine("Error al modificar el animal: " + ex.Message);
+                    
                     return false;
                 }
             }
