@@ -1,0 +1,7 @@
+SELECT TOP (1000) [Id]
+      ,[Nombre]
+      ,[Especie]
+      ,[Edad]
+      ,[Color]
+      ,[Ubicacion]
+  FROM [Animales].[dbo].[Animales]
